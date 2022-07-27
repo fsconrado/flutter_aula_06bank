@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_06bank/pages/home_page.dart';
 
 
 class FormularioTransferencia extends StatelessWidget {
@@ -16,8 +17,13 @@ class FormularioTransferencia extends StatelessWidget {
         CaixaDeTexto("Número da Conta", "Digite aqui o número da conta", controlaConta),
         CaixaDeTexto("Valor da Transferência", "R\$ 00,00", controlaValor),
         ElevatedButton(onPressed: (){
-          print(controlaConta.text);
-          print(controlaValor.text);
+          if(controlaConta.text !=null && controlaValor.text !=null){
+            var conta  = int.parse(controlaConta.text);
+            var valor = double.parse(controlaValor.text);
+            Transferencia transferencia = Transferencia(conta, valor);
+            Navigator.pop(context, transferencia);
+          }
+
         }, child: Text("Enviar"))
       ]
       ),
@@ -39,6 +45,7 @@ class CaixaDeTexto extends StatelessWidget {
       child: TextField(
         controller: controla,
         decoration: InputDecoration(
+          icon: Icon(Icons.monetization_on),
         labelText: titulo,
         hintText: comentario,
       ),
